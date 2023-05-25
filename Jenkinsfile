@@ -1,7 +1,11 @@
-@Library('codeutils@master')
-
-def codeUtils = new org.opstree.java.javaCodePipeline()
-
-node{
-  codeUtils.call()
+node {
+    stage('Build') {
+        sh 'mvn clean package'
+    }
+    stage('Test') {
+        sh 'mvn test'
+    }
+    stage('Deploy') {
+        sh 'mvn deploy'
+    }
 }
