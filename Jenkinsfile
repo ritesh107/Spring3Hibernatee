@@ -1,11 +1,26 @@
 node {
+    stage('Checkout') {
+        checkout([$class: 'GitSCM',
+                  branches: [[name: '*/master'], [name: '*/ninja']],
+                  extensions: [],
+                  userRemoteConfigs: [[url: 'https://github.com/ritesh107/springhub.git']]])
+    }
+    
     stage('Build') {
-        sh 'mvn clean package'
+        steps {
+            sh 'mvn clean package'
+        }
     }
+    
     stage('Test') {
-        sh 'mvn test'
+        steps {
+            sh 'mvn test'
+        }
     }
+    
     stage('Deploy') {
-        echo 'Deployment'
+        steps {
+            echo "Deploy"
+        }
     }
 }
