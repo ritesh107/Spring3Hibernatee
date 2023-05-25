@@ -6,6 +6,6 @@ node {
         sh 'mvn test'
     }
     stage('Deploy') {
-        sh 'mvn deploy'
+        echo 'Deployment'
     }
 }
