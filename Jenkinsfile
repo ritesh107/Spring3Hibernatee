@@ -1,25 +1,20 @@
-node {
-    agent any
-    stages ('clone & Checkout') {
-        steps {
-            bat "git clone https://github.com/ritesh107/springhub.git"
+pipeline {
+  agent any
+  tools {
+    maven 'maven' 
+  }
+  stages {
+    stage ('Build') {
+      steps {
+        sh 'mvn clean package'
+      }
     }
-    
-    stage('install') {
-        steps {
-            bat "mvn install"
+    stage ('Deploy') {
+      steps {
+        script {
+          echo "deployed" 
         }
+      }
     }
-    
-    stage('Test') {
-        steps {
-            bat "mvn test"
-        }
-    }
-    
-    stage('package') {
-        steps {
-            bat "mvn package"
-        }
-    }
+  }
 }
