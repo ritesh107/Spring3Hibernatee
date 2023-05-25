@@ -1,26 +1,25 @@
 node {
-    stage('Checkout') {
-        checkout([$class: 'GitSCM',
-                  branches: [[name: '*/master'], [name: '*/ninja']],
-                  extensions: [],
-                  userRemoteConfigs: [[url: 'https://github.com/ritesh107/springhub.git']]])
+    agent any
+    stages ('clone & Checkout') {
+        steps {
+            bat "git clone https://github.com/ritesh107/springhub.git"
     }
     
-    stage('Build') {
+    stage('install') {
         steps {
-            sh 'mvn clean package'
+            bat "mvn install"
         }
     }
     
     stage('Test') {
         steps {
-            sh 'mvn test'
+            bat "mvn test"
         }
     }
     
-    stage('Deploy') {
+    stage('package') {
         steps {
-            echo "Deploy"
+            bat "mvn package"
         }
     }
 }
